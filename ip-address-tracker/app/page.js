@@ -9,15 +9,18 @@ import { DomainAPI } from "./apis/domainAPI";
 import { useState } from "react";
 export default function Home() {
   const [inputDomain, setInputDomain] = useState("");
+  const [retrievedData, setRetrievedData] = useState(null);
 
   const handleInputChange = (event) => {
-    setInputDomain(event.target.value);
+    setInputDomain(event.target.value).trim();
   };
 
   const handleSubmit = async () => {
-    const data = await DomainAPI();
+    const data = await DomainAPI(inputDomain);
     console.log(data);
+    setRetrievedData(data);
   };
+  console.log(retrievedData);
 
   return (
     <>
@@ -46,6 +49,33 @@ export default function Home() {
                   src={arrow}
                 ></Image>
               </button>
+            </div>
+            <div className={styles.information_section_wrapper}>
+              <div className={styles.information_container}>
+                <div className={styles.container_title}>ip address</div>
+                <div className={styles.container_content}>
+                  {retrievedData?.ip}
+                </div>
+              </div>
+              <div className={styles.information_container}>
+                <div className={styles.container_title}>location</div>
+                <div className={styles.container_content}>
+                  {retrievedData?.location.country}{" "}
+                  {retrievedData?.location.region}
+                </div>
+              </div>
+              <div className={styles.information_container}>
+                <div className={styles.container_title}>timezone</div>
+                <div className={styles.container_content}>
+                  {retrievedData?.location.timezone}
+                </div>
+              </div>
+              <div className={styles.information_container}>
+                <div className={styles.container_title}> isp</div>
+                <div className={styles.container_content}>
+                  {retrievedData?.isp}
+                </div>
+              </div>
             </div>
           </div>
         </div>

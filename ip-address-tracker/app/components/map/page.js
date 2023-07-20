@@ -16,7 +16,7 @@ export default function LeafletMap() {
     fetchDomainData();
   }, []);
 
-  console.log(apiData?.isp);
+  // console.log(apiData?.isp);
 
   useEffect(() => {
     // Import Leaflet dynamically on the client-side
